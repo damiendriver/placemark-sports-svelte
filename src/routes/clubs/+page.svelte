@@ -1,22 +1,28 @@
 <script>
-    import Header from '$lib/Header.svelte';
-    import MainNavigator from '$lib/MainNavigator.svelte';
-    import AddClubs from '$lib/AddClubs.svelte';
-    import ListClubs from '$lib/ListClubs.svelte';
+    import TitleBar from "$lib/TitleBar.svelte";
+    import Header from "$lib/Header.svelte";
+    import MainNavigator from "$lib/MainNavigator.svelte";
+    import AddClubs from "$lib/AddClubs.svelte";
+    import ListClubs from "$lib/ListClubs.svelte";
     import SportgroundsMap from "$lib/SportgroundsMap.svelte";
+    import { placemarkService } from "../../services/placemark-service";
 </script>
 
-<Header>
-    <MainNavigator />
-</Header>
-
 <div class="columns is-vcentered">
-    <div class="column has-text-centered">
-        <ListClubs />
+    <div class="column is-two-thirds">
+        <TitleBar subTitle={"Clubs Detail & Locations"} title={"Placemark - Sportgrounds"} />
+    </div>
+    <div class="column">
+        <MainNavigator />
+    </div>
+</div>
+
+<div class="box">
+    <ListClubs />
+</div>
+<div class="box">
+        <AddClubs /> 
+</div>
+<div class="box">
         <SportgroundsMap />
-    </div>
-    <div class="column box has-text-centered">
-        <h1 class="title is-4">Add a new Club</h1>
-        <AddClubs />
-    </div>
 </div>

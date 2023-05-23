@@ -18,3 +18,4 @@
 <div class="box">Map of Sportgrounds here</div>
 
 <SportgroundsMap />
+

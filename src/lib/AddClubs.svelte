@@ -1,6 +1,6 @@
 <script>
 // @ts-nocheck
-
+    import { goto } from '$app/navigation';
     import { onMount } from "svelte";
     import { placemarkService } from "../services/placemark-service";
 
@@ -11,21 +11,25 @@
     let county = "";
     let latitude = 0;
     let longitude = 0;
+    let sportgroundList = [];
+    let selectedSportground = "";
 
     let message = "Please add Your Club Details";
 
     onMount(async () => {
-        clubsList = await placemarkService.getAllClubs();
+        sportgroundList = await placemarkService.getAllSportgrounds();
     });
 
   async function addClub() {
     if (clubname && description && county && latitude && longitude) {
+      const sportground = sportgroundList.find(sportground => sportground.title);
       const club = {
         clubname: clubname,
         description: description,
         county: county,
         latitude: latitude,
-        longitude: longitude
+        longitude: longitude,
+        sportground: sportground._id
       };
       const success = await placemarkService.addClub(club);
           if (!success) {
@@ -33,7 +37,7 @@
                 return;
             }
             message = "Thanks! Your Club has been added";
-            goto("/clubs");
+            goto("/dashboard");
         } else {
             message = "Please complete all requested fields";
         }
@@ -59,7 +63,15 @@
             <div class="field">
               <input class="input is-rounded" type="text" placeholder="Longitude" bind:value={longitude}>
             </div>
-          </div>
+            <div class="field">
+              <div class="select">
+                <select bind:value={selectedSportground}>
+                {#each sportgroundList as sportground}
+                <option>{sportground.title}</option>
+                {/each}
+                </select>
+             </div>
+            </div>
         </div>
         <button class="button is-primary is-rounded">Add Club</button>
 <div class="box">

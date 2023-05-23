@@ -1,5 +1,5 @@
 <script>
-    import TitleBar from "$lib/TitleBar.svelte";
+    import TitleBar from '$lib/TitleBar.svelte';
     import Header from '$lib/Header.svelte';
     import MainNavigator from '$lib/MainNavigator.svelte';
     import ListClubs from '$lib/ListClubs.svelte';
@@ -18,6 +18,4 @@
 </div>
 
   <ListClubs />
-  <AddClubs />
   <ListSportgrounds />
-  <AddSportgrounds />

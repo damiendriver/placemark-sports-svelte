@@ -5,9 +5,9 @@
     import { placemarkService } from "../services/placemark-service";
 
     let sportgroundsList = [];
+    let selectedSportgrounds = "";
 
     let title = "";
-
     let message = "Please add a new Sport";
 
     onMount(async () => {
