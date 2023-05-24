@@ -3,7 +3,8 @@ import axios from "axios";
 import { user, latestClub } from "../stores.js";
 
 export const placemarkService = {
-    baseUrl: "http://localhost:4000",
+    // baseUrl: "http://localhost:4000",
+       baseUrl: "https://placemark-sportground.onrender.com",
 
     async login(email, password) {
         try {
