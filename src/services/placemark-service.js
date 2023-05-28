@@ -1,10 +1,11 @@
 // @ts-nocheck
 import axios from "axios";
-import { user, latestClub } from "../stores.js";
+import { user, latestClub, latestSportground } from "../stores.js";
+
 
 export const placemarkService = {
     // baseUrl: "http://localhost:4000",
-       baseUrl: "https://placemark-sportground.onrender.com",
+    baseUrl: "https://placemark-sportground.onrender.com",
 
     async login(email, password) {
         try {
@@ -69,6 +70,15 @@ export const placemarkService = {
         }
     },
 
+    async getClub(id) {
+        try {
+            const response = await axios.get(this.baseUrl + "/api/clubs/" + id);
+            return response.data;
+        } catch (error) {
+            return [];
+        }
+    },
+
     async getAllSportgrounds() {
         try {
             const response = await axios.get(this.baseUrl + "/api/sportgrounds");
@@ -78,34 +88,72 @@ export const placemarkService = {
         }
     },
 
-    async addClub(club) {
+    async getSportgrounds(id) {
         try {
-            const response = await axios.post(this.baseUrl + "/api/sportgrounds/" + club.sportground + "/clubs", club);
-            latestClub.set(club);
-            return response.status == 200;
-        } catch (error) {
-            return false;
-        }
-    },
-
-    async addSportground(sportground) {
-       try {
-           const response = await axios.post(this.baseUrl + "/api/sportgrounds/" + sportground.addSportground + "/sportgrounds", sportground);
-           return response.status == 200;
-       } catch (error) {
-           return false;
-        }
-   },
-
-
-    async getClub(id) {
-        try {
-            const response = await axios.get(this.baseUrl + "/api/clubs/" + id);
+            const response = await axios.get(this.baseUrl + "/api/sportgrounds" + id);
             return response.data;
         } catch (error) {
             return [];
         }
     },
+
+/** 
+async addClub(club) {
+    try {
+        const response = await axios.post(this.baseUrl + "/api/sportgrounds/" + club.sportground + "/clubs", club);
+        latestClub.set(club);
+        return response.status == 200;
+    } catch (error) {
+        return false;
+    }
+},
+*/
+  async addClub(sportgroundId, club) {
+		try {
+            console.log(club);
+            console.log(sportgroundId);
+			const response = await axios.post(this.baseUrl + "/api/sportgrounds/" + sportgroundId + "/clubs", club);
+            latestClub.set(club);
+			return response.status == 201;
+		} catch (error) {
+			return false;
+		}
+	},
+
+    async addSportground(sportground) {
+       try {
+           const response = await axios.post(this.baseUrl + "/api/sportgrounds", sportground);
+           return response.status == 201;
+       } catch (error) {
+           return false;
+        }
+   },
+
+   async deleteSportground(sportground) {
+    try {
+        const response = await axios.delete(this.baseUrl + "/api/sportgrounds/" + sportground._id);
+        return response.status == 204;
+    } catch (error) {
+        return false;
+    }
+},
+
+checkPageRefresh() {
+    if (!axios.defaults.headers.common["Authorization"]) {
+        const placemarkCredentials = localStorage.placemark;
+        if (placemarkCredentials) {
+            const savedUser = JSON.parse(placemarkCredentials);
+            user.set({
+                email: savedUser.email,
+                token: savedUser.token,
+                _id: savedUser._id
+            });
+            axios.defaults.headers.common["Authorization"] = "Bearer " + savedUser.token;
+        }
+    }
+},
+
+    
 
 
 };

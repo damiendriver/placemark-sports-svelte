@@ -15,7 +15,6 @@
         <th>Home County</th>
         <th>Latitude</th>
         <th>Longitude</th>
-        <th></th>
     </thead>
     <tbody>
         {#each clubsList as clubs}

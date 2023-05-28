@@ -6,6 +6,8 @@
     import ListClubs from "$lib/ListClubs.svelte";
     import SportgroundsMap from "$lib/SportgroundsMap.svelte";
     import { placemarkService } from "../../services/placemark-service";
+
+
 </script>
 
 <div class="columns is-vcentered">

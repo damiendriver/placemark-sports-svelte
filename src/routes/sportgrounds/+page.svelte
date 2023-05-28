@@ -3,6 +3,7 @@
     import MainNavigator from '$lib/MainNavigator.svelte';
     import AddSportgrounds from '$lib/AddSportgrounds.svelte';
     import ListSportgrounds from '$lib/ListSportgrounds.svelte';
+    import { placemarkService } from "../../services/placemark-service";
 </script>
 
 <Header>
